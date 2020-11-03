@@ -6,7 +6,7 @@ const userOutput = (props) => {
     return (
         <div className='UserOutput'>
             <p>Name: {props.username}</p>
-            <p>Size: {props.size}</p>
+            <p>this is the second sentence</p>
         </div>
     );
 }

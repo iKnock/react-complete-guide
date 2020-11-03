@@ -27,13 +27,16 @@ class App extends Component {
   render() {
 
     const showEachChar = this.state.name.split('').map((eachChar, index) => {
-      return <Chars chars={eachChar} key={index} removeCharacter={() => this.removeChars(index)} />
+      return <Chars 
+      chars={eachChar} 
+      key={index} 
+      removeCharacter={() => this.removeChars(index)} />
     });
 
     return (
       <div className="App">
-        <UserInput readInput={(event) => this.userNameHandler(event)} currentName={this.state.name} />
-
+        
+        <input type="text" onChange={(event) => this.userNameHandler(event)} currentName={this.state.name} />
         <UserOutput username={this.state.name} size={this.state.size} />
         <Validation inputLen={this.state.size} />
         {showEachChar}
