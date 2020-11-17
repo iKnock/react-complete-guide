@@ -1,66 +1,32 @@
 import React, { Component } from 'react';
 
-import Axios from '../../axios';
-
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
-import './Blog.css';
-//import Axios from 'axios';
+import { Route,Link } from 'react-router-dom'
+import Posts from './Posts/Posts';
+import NewPost from '../../containers/Blog/NewPost/NewPost'
+import classes from './Blog.module.css';
 
 class Blog extends Component {
-
-    state = {
-        posts: [],
-        selectedPostId: null,
-        error: false
-    }
-
-    componentDidMount() {
-        Axios.get('/posts')
-            .then(response => {
-                const posts = response.data.slice(0, 4);
-                const updatedPosts = posts.map(post => {
-                    return {
-                        ...post,
-                        author: 'Max'
-                    }
-                })
-                this.setState({ posts: updatedPosts })
-            }).catch(error => {
-                this.setState({ error: true })
-            })
-    }
-
-    postSelectedHandler = (id) => {
-        this.setState({ selectedPostId: id })
-    }
-
     render() {
-        let posts = <p style={{ textAlign: "center" }}>Something went wrong</p>
-        if (!this.state.error) {
-            posts = this.state.posts.map(post => {
-                return <Post
-                    key={post.id}
-                    title={post.title}
-                    author={post.author}
-                    clicked={() => this.postSelectedHandler(post.id)} />
-            })
-        }
-
         return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
-                    <FullPost id={this.state.selectedPostId} />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+            <div className={classes.Blog}>
+                <header>
+                    <nav>
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to={{
+                                pathname:'/new-post',
+                                hash:'#submit',/**to submit as soon as it traversed */
+                                search:'?quick-submit=true'/**to add query param */
+                            }}>New Post</Link></li>
+                        </ul>
+                    </nav>
+                </header>
+               { /*<Route path="/" exact render={()=>()} />
+                <Route path="/" render={()=><h1>Home2</h1>} />*/}
+                <Route path="/" exact component={Posts}/> 
+                <Route path="/new-post" component={NewPost}/> 
             </div>
-        );
+        );  
     }
 }
 
