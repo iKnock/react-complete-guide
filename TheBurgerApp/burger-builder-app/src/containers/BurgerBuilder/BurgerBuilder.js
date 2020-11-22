@@ -27,6 +27,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         axios.get('https://burger-builder-react-72c49.firebaseio.com/ingridients.json')
             .then(response => {
                 this.setState({ ingredients: response.data })
@@ -90,6 +91,7 @@ class BurgerBuilder extends Component {
         //navigate check out form
         //for now send and save the data to the firestore db
         //Note add .json at the end only for firebase db
+        /*
         this.setState({ loading: true });
         const order = {
             ingredients: this.state.ingredients,
@@ -111,7 +113,18 @@ class BurgerBuilder extends Component {
             })
             .catch(error => {
                 this.setState({ loading: false, purchasing: false })
-            })
+            })*/
+
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render() {
