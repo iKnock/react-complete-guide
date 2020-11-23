@@ -18,12 +18,15 @@ class ContactData extends Component {
     }
 
     orderHandler = (event) => {
+        console.log("price: " + this.props.price);
         event.preventDefault();
         //console.log(this.props.ingredients);
+        //navigate check out form
+        //for now send and save the data to the firestore db
+        //Note add .json at the end only for firebase db        
         this.setState({ loading: true });
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.totalPrice,
             customer: {
                 name: 'henok ergana',
                 address: {
@@ -33,7 +36,8 @@ class ContactData extends Component {
                 },
                 email: 'test@gmail.com'
             },
-            deliveryMethod: 'fastest'
+            deliveryMethod: 'fastest',
+            price: this.props.price
         }
         axios.post('/orders.json', order)
             .then(response => {

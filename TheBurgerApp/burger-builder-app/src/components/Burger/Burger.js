@@ -3,8 +3,7 @@ import React from 'react'
 import classes from './Burger.module.css'
 import BurgerIngredient from './BurgerIngrediant/BurgerIngrediant'
 
-const burger = (props) => {
-    console.log(props)
+const burger = (props) => {    
     //This is how to flat an object to array of jsx element having values of ingredients object
     let transformedIngredients = Object.keys(props.ingredients)//an array of the key of the object
     .map(igKey => {
