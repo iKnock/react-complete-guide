@@ -137,6 +137,42 @@ class ContactData extends Component {
             </div>
         );
     }
+
+    /**
+     * render() {
+        //this is to flat the orderForm json found in the state to an array called formElementsArray to 
+        //use it for input element dynamically
+        const formElementsArray = [];
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
+
+        let form = (
+            <form onSubmit={this.orderHandler}>
+                {formElementsArray.map(formElement => (
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))}
+                <Button btnType="Success" clicked={this.orderHandler}>Order Here</Button>
+            </form>
+        );
+        if (this.state.loading) {
+            form = <Spinner />;
+        }
+        return (
+            <div className={classes.ContactData}>
+                <h4>Enter your Contact Data</h4>
+                {form}
+            </div>
+        );
+     */
 }
 
 export default ContactData;
