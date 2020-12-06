@@ -29,14 +29,17 @@ export const auth = (email, password) => {
             password: password,
             returnSecureToken: true
         }
+        const headers = {
+            "Content-Type": "application/json"
+        }
         let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB7AO2c-FEuooubfuH-XrXrvOOKeddl5PM'
-        axios.post(url, authData)
+        axios.post(url, authData, headers)
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data));
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response.data.error.message)
                 dispatch(authFail(err.data));
             })
     }
