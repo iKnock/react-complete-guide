@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import * as actionTypes from '../actions/actionType'
 import { updateObject } from '../utility'
 
