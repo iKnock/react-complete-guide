@@ -43,11 +43,12 @@ const Auth = props => {
 
     const [isSignup, setIsSignUp] = useState(true);
 
+    const { buildingBurger, authRedirectPath, onSetAuthRedirectPath } = props;
     useEffect(() => {
-        if (!props.buildingBurger && props.authRedirectPath !== '/') {
-            props.onSetAuthRedirectPath();
+        if (!buildingBurger && authRedirectPath !== '/') {
+            onSetAuthRedirectPath();
         }
-    }, [])
+    }, [buildingBurger, authRedirectPath, onSetAuthRedirectPath])
 
     const inputChangedHandler = (event, controlName) => {
         //we need to clone the orderForm deeply since it has nested data (immutable update)
